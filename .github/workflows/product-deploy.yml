@@ -1,0 +1,27 @@
+name: Product Deploy Trigger
+
+on:
+  repository_dispatch:
+    types: [trigger-product]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get product name
+        run: echo "Selected product is ${{ github.event.client_payload.product }}"
+
+      - name: Run Product A logic
+        if: ${{ github.event.client_payload.product == 'productA' }}
+        run: echo "Running pipeline for Product A..."
+
+      - name: Run Product B logic
+        if: ${{ github.event.client_payload.product == 'productB' }}
+        run: echo "Running pipeline for Product B..."
+
+      - name: Run Product C logic
+        if: ${{ github.event.client_payload.product == 'productC' }}
+        run: echo "Running pipeline for Product C..."
