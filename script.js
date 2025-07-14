@@ -25,7 +25,7 @@ dropzone.addEventListener('drop', (e) => {
   fetch(`https://api.github.com/repos/yaksh0210/gitest/dispatches`, {
     method: 'POST',
     headers: {
-      'Authorization': 'Bearer YOUR_GITHUB_TOKEN',
+      'Authorization': 'Bearer ',
       'Accept': 'application/vnd.github.everest-preview+json',
       'Content-Type': 'application/json'
     },

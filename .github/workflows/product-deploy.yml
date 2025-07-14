@@ -17,9 +17,9 @@ jobs:
       - name: Run Product A logic
         if: ${{ github.event.client_payload.product == 'productA' }}
         run: |
-         echo "Running pipeline for Product A..."
          sudo apt update
-         sudo apt install tree
+         sudo apt install figlet
+         figlet Product A Working
          
       - name: Run Product B logic
         if: ${{ github.event.client_payload.product == 'productB' }}
