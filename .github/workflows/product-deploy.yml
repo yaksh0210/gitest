@@ -7,6 +7,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    outputs:
+      product: ${{ github.event.client_payload.product }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -16,11 +18,8 @@ jobs:
 
       - name: Run Product A logic
         if: ${{ github.event.client_payload.product == 'productA' }}
-        run: |
-         sudo apt update
-         sudo apt install figlet
-         figlet Product A Working
-         
+        run: echo "Running pipeline for Product A..."
+
       - name: Run Product B logic
         if: ${{ github.event.client_payload.product == 'productB' }}
         run: echo "Running pipeline for Product B..."
@@ -28,3 +27,27 @@ jobs:
       - name: Run Product C logic
         if: ${{ github.event.client_payload.product == 'productC' }}
         run: echo "Running pipeline for Product C..."
+
+  next_stage_productA:
+    needs: deploy
+    if: needs.deploy.outputs.product == 'productA'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Next stage for Product A
+        run: echo "Performing next stage operations for Product A"
+
+  next_stage_productB:
+    needs: deploy
+    if: needs.deploy.outputs.product == 'productB'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Next stage for Product B
+        run: echo "Performing next stage operations for Product B"
+
+  next_stage_productC:
+    needs: deploy
+    if: needs.deploy.outputs.product == 'productC'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Next stage for Product C
+        run: echo "Performing next stage operations for Product C"
