@@ -5,49 +5,123 @@ on:
     types: [trigger-product]
 
 jobs:
-  deploy:
+  # This job reads the product and outputs it so other jobs can use
+  init:
     runs-on: ubuntu-latest
     outputs:
       product: ${{ github.event.client_payload.product }}
     steps:
+      - name: Print selected product
+        run: |
+         echo "Selected product: ${{ github.event.client_payload.product }}"
+
+  # Build job for Product A
+  build_productA:
+    needs: init
+    if: needs.init.outputs.product == 'productA'
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Get product name
-        run: echo "Selected product is ${{ github.event.client_payload.product }}"
+      - name: Build Product A
+        run: |
+          echo "Building Product A..."
+          # Insert your build commands here
 
-      - name: Run Product A logic
-        if: ${{ github.event.client_payload.product == 'productA' }}
-        run: echo "Running pipeline for Product A..."
-
-      - name: Run Product B logic
-        if: ${{ github.event.client_payload.product == 'productB' }}
-        run: echo "Running pipeline for Product B..."
-
-      - name: Run Product C logic
-        if: ${{ github.event.client_payload.product == 'productC' }}
-        run: echo "Running pipeline for Product C..."
-
-  next_stage_productA:
-    needs: deploy
-    if: needs.deploy.outputs.product == 'productA'
+  # Test job for Product A
+  test_productA:
+    needs: build_productA
     runs-on: ubuntu-latest
     steps:
-      - name: Next stage for Product A
-        run: echo "Performing next stage operations for Product A"
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-  next_stage_productB:
-    needs: deploy
-    if: needs.deploy.outputs.product == 'productB'
+      - name: Test Product A
+        run: |
+          echo "Running tests for Product A..."
+          # Insert your test commands here
+
+  # Deploy job for Product A
+  deploy_productA:
+    needs: test_productA
     runs-on: ubuntu-latest
     steps:
-      - name: Next stage for Product B
-        run: echo "Performing next stage operations for Product B"
+      - name: Deploy Product A
+        run: |
+          echo "Deploying Product A..."
+          # Insert your deploy commands here
 
-  next_stage_productC:
-    needs: deploy
-    if: needs.deploy.outputs.product == 'productC'
+  # Build job for Product B
+  build_productB:
+    needs: init
+    if: needs.init.outputs.product == 'productB'
     runs-on: ubuntu-latest
     steps:
-      - name: Next stage for Product C
-        run: echo "Performing next stage operations for Product C"
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Product B
+        run: |
+          echo "Building Product B..."
+          # Insert your build commands here
+
+  # Test job for Product B
+  test_productB:
+    needs: build_productB
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Test Product B
+        run: |
+          echo "Running tests for Product B..."
+          # Insert your test commands here
+
+  # Deploy job for Product B
+  deploy_productB:
+    needs: test_productB
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Product B
+        run: |
+          echo "Deploying Product B..."
+          # Insert your deploy commands here
+
+  # Build job for Product C
+  build_productC:
+    needs: init
+    if: needs.init.outputs.product == 'productC'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Product C
+        run: |
+          echo "Building Product C..."
+          # Insert your build commands here
+
+  # Test job for Product C
+  test_productC:
+    needs: build_productC
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Test Product C
+        run: |
+          echo "Running tests for Product C..."
+          # Insert your test commands here
+
+  # Deploy job for Product C
+  deploy_productC:
+    needs: test_productC
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Product C
+        run: |
+          echo "Deploying Product C..."
+          # Insert your deploy commands here
