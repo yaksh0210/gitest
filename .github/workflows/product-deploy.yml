@@ -27,7 +27,7 @@ jobs:
       - name: Build Product A
         run: |
           echo "Building Product A..."
-          # Insert your build commands here
+          
 
   # Test job for Product A
   test_productA:
@@ -40,7 +40,7 @@ jobs:
       - name: Test Product A
         run: |
           echo "Running tests for Product A..."
-          # Insert your test commands here
+          
 
   # Deploy job for Product A
   deploy_productA:
@@ -50,8 +50,7 @@ jobs:
       - name: Deploy Product A
         run: |
           echo "Deploying Product A..."
-          # Insert your deploy commands here
-
+          
   # Build job for Product B
   build_productB:
     needs: init
@@ -64,8 +63,7 @@ jobs:
       - name: Build Product B
         run: |
           echo "Building Product B..."
-          # Insert your build commands here
-
+          
   # Test job for Product B
   test_productB:
     needs: build_productB
@@ -77,8 +75,7 @@ jobs:
       - name: Test Product B
         run: |
           echo "Running tests for Product B..."
-          # Insert your test commands here
-
+          
   # Deploy job for Product B
   deploy_productB:
     needs: test_productB
@@ -87,8 +84,7 @@ jobs:
       - name: Deploy Product B
         run: |
           echo "Deploying Product B..."
-          # Insert your deploy commands here
-
+          
   # Build job for Product C
   build_productC:
     needs: init
@@ -101,8 +97,7 @@ jobs:
       - name: Build Product C
         run: |
           echo "Building Product C..."
-          # Insert your build commands here
-
+          
   # Test job for Product C
   test_productC:
     needs: build_productC
@@ -114,8 +109,7 @@ jobs:
       - name: Test Product C
         run: |
           echo "Running tests for Product C..."
-          # Insert your test commands here
-
+          
   # Deploy job for Product C
   deploy_productC:
     needs: test_productC
@@ -124,4 +118,3 @@ jobs:
       - name: Deploy Product C
         run: |
           echo "Deploying Product C..."
-          # Insert your deploy commands here
